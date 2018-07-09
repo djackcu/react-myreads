@@ -10,20 +10,25 @@ class ListBooks extends Component {
 
     render() {
     	const { books } = this.props;
-      const book = books[0];
-      console.log(book)
         return ( 
-        	<div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>  
+              <div className="list-books-content">
+                {books.length !== 0 && (
+                <BookShelf 
+                title="Currently Reading"
+                shelf="currentlyReading"
+                books={books}
+                />
+                )}
+              </div>
+              <div className="open-search">
+                <Link to= '/search' >Add a book</Link>
+              </div>
             </div>
-            <div className="list-books-content">
-              <BookShelf />
-            </div>
-            <div className="open-search">
-              <Link to= '/search' >Add a book</Link>
-            </div>
-          </div>
+            
         )
     }
 }
