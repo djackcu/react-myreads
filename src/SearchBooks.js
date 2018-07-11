@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class SearchBooks extends Component {
-
+	static propTypes = {
+    	books: PropTypes.array.isRequired
+  	}
     render() {
         return ( 
         	<div className="search-books">
@@ -23,7 +25,8 @@ class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+              </ol>
             </div>
           </div>
 

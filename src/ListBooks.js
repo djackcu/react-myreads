@@ -1,34 +1,27 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import BookShelf from './BookShelf'
-import PropTypes from 'prop-types';
 
 class ListBooks extends Component {
-   static propTypes = {
-    books: PropTypes.array.isRequired
-  }
-
+   
     render() {
     	const { books } = this.props;
-        return ( 
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>  
+      const shelf = [
+        {title: 'Currently Reading', category:'currentlyReading'},
+        {title: 'Read', category:'read'},
+        {title: 'Want to read', category:'wantToRead'}
+        ]
+        return (             
               <div className="list-books-content">
-                {books.length !== 0 && (
-                <BookShelf 
-                title="Currently Reading"
-                shelf="currentlyReading"
-                books={books}
-                />
-                )}
+              {shelf.map((shelf) => (
+                <div key={shelf.category}>
+                  <BookShelf 
+                  title={shelf.title}
+                  shelf={shelf.category}
+                  books={books}
+                  />
+                </div>
+                ))}           
               </div>
-              <div className="open-search">
-                <Link to= '/search' >Add a book</Link>
-              </div>
-            </div>
-            
         )
     }
 }
