@@ -14,22 +14,31 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     listBooks:[],
-    searchBooks:[]
+    listSearchBooks:[],
   }
 
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
       this.setState({listBooks:books})
-    })
+    }).catch((e) => {
+       console.log('error',e) 
+     })
   }
 
+  searchingBook = (query) => {
+     BooksAPI.search(query).then((books) => {
+      Array.isArray(books)?this.setState({listSearchBooks:books}):this.setState({listSearchBooks:[]})
+    })
+    }
+
   render() {
+    const {listSearchBooks,listBooks,query} = this.state
     return (
       <div>
 
       <Route exact path="/" render={() => (  
           <MainPage
-          books={this.state.listBooks}
+          books={listBooks}
           />
         )}
 
@@ -37,7 +46,8 @@ class BooksApp extends React.Component {
         
       <Route path="/search" render={({history}) => (
           <SearchBooks
-          books={this.state.searchBooks}
+          books={listSearchBooks}
+          onSearchBook={(this.searchingBook)}
           />
         )}  />
       </div>
