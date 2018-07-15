@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 
 class MainPage extends Component {
    static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    changeShelf: PropTypes.func.isRequired
   }
 
     render() {
-    	const { books } = this.props;
+    	const { books, changeShelf } = this.props;
         return ( 
             <div className="list-books">
               <div className="list-books-title">
@@ -17,6 +18,7 @@ class MainPage extends Component {
               </div>  
                   <ListBooks 
                   books={books}
+                  changeShelf = {changeShelf}
                   />                         
               <div className="open-search">
                 <Link to= '/search' >Add a book</Link>

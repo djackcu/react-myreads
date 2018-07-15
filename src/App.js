@@ -18,18 +18,28 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount(){
+    this.loadListBook()
+  }
+
+  loadListBook = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({listBooks:books})
     }).catch((e) => {
        console.log('error',e) 
-     })
+     }) 
   }
-
   searchingBook = (query) => {
      BooksAPI.search(query).then((books) => {
       Array.isArray(books)?this.setState({listSearchBooks:books}):this.setState({listSearchBooks:[]})
     })
     }
+
+  changeShelf = (book,shelf) => {
+    console.log(book,shelf)
+      BooksAPI.update(book,shelf).then(() => {
+        this.loadListBook()
+      })
+       }
 
   render() {
     const {listSearchBooks,listBooks,query} = this.state
@@ -39,6 +49,7 @@ class BooksApp extends React.Component {
       <Route exact path="/" render={() => (  
           <MainPage
           books={listBooks}
+          changeShelf = {this.changeShelf}
           />
         )}
 
@@ -48,6 +59,7 @@ class BooksApp extends React.Component {
           <SearchBooks
           books={listSearchBooks}
           onSearchBook={(this.searchingBook)}
+          changeShelf = {this.changeShelf}
           />
         )}  />
       </div>

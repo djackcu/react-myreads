@@ -6,7 +6,8 @@ import Book from './Book'
 class SearchBooks extends Component {
 	static propTypes = {
     	books: PropTypes.array.isRequired,
-    	onSearchBook: PropTypes.func.isRequired
+    	onSearchBook: PropTypes.func.isRequired,
+    	changeShelf: PropTypes.func.isRequired
   	}
 
   	state = {
@@ -16,14 +17,17 @@ class SearchBooks extends Component {
   		this.setState({ queryToSearch: query }) 
   		this.props.onSearchBook(query)
   	}
+
     render() {
     	const { queryToSearch } = this.state
-    	const {books, onSearchBook} = this.props
+    	const {books, onSearchBook, changeShelf} = this.props
     	console.log(books)
         return ( 
         	<div className="search-books">
             <div className="search-books-bar">
-              <Link className="close-search" to='/'>Close</Link>
+              <Link className="close-search" to='/' onClick={(e) => (
+              	this.updateQuery('') 
+              )}>Close</Link>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -48,6 +52,7 @@ class SearchBooks extends Component {
                                                     <li key= {book.id}>
                                                     <Book 
                                                     book={book}
+                                                    onChangeShelf = {changeShelf}
                                                   /> 
                                                   </li>
                                                   ))
