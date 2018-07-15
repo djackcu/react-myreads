@@ -14,7 +14,7 @@ class SearchBooks extends Component {
   		queryToSearch:''
   	}
   	updateQuery (query) {
-  		this.setState({ queryToSearch: query }) 
+  		this.setState({ queryToSearch: query });
   		this.props.onSearchBook(query)
   	}
 
