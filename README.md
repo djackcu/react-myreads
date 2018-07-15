@@ -1,12 +1,12 @@
 # MyReads Project
 
-This project was created with [REACT](https://reactjs.org/) as part of  Udacity Front-End Developer Nanodegree https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001.
+This project was created with [REACT](https://reactjs.org/) as part of  [Udacity Front-End Developer Nanodegree](https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 
 ##User instructions
 
 * install all project dependencies with `npm install`
 * start the server with `npm start`
-* Open [Local server/](http://localhost:3000/) in the browser
+* Open [Local server](http://localhost:3000/) in the browser
 
 ### What You're Getting
 
