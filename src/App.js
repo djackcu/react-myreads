@@ -24,25 +24,37 @@ class BooksApp extends React.Component {
   loadListBook = () => {
     BooksAPI.getAll().then((books) => {
       this.setState({listBooks:books})
-    }).catch((e) => {
-       console.log('error',e) 
-     }) 
+    }) 
   }
   searchingBook = (query) => {
      BooksAPI.search(query).then((books) => {
-      Array.isArray(books)?this.setState({listSearchBooks:books}):this.setState({listSearchBooks:[]})
+      if (Array.isArray(books)) {
+        let shelfSearchBooks = books.map((book) => {
+          let shelfBook = this.state.listBooks.find((shelfBook) => {
+            return shelfBook.id===book.id
+          });
+          if (shelfBook) {
+            return shelfBook;
+          } else {
+            book.shelf = 'none';
+            return book;
+          }
+        })
+        this.setState({listSearchBooks:shelfSearchBooks})
+      } else {
+        this.setState({listSearchBooks:[]})
+      }
     })
     }
 
   changeShelf = (book,shelf) => {
-    console.log(book,shelf)
       BooksAPI.update(book,shelf).then(() => {
         this.loadListBook()
       })
        }
 
   render() {
-    const {listSearchBooks,listBooks,query} = this.state
+    const {listSearchBooks,listBooks} = this.state
     return (
       <div>
 
